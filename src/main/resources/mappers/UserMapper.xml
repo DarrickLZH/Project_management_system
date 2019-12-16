@@ -22,15 +22,15 @@
     set username = #{username,jdbcType=VARCHAR},
       `password` = #{password,jdbcType=VARCHAR},
       `role` = #{role,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+    where username = #{username}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, username, `password`, `role`
     from user_info
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select id, username, `password`, `role`
+  <select id="selectAll" resultType="com.uchain.projectsystem.dto.UserIdDTO" >
+    select id, username, `role`
     from user_info
   </select>
     <select id="selectUserByUsername" resultType="com.uchain.projectsystem.entity.User">

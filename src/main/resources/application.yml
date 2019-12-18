@@ -28,7 +28,7 @@ spring:
     timeout: 1000 # 连接超时时间（毫秒）
 
 jwt:
-  secret: mysecret
+  secret:
   expiration: 1296000
   tokenStart: "Bearer "
   tokenName: Authorization

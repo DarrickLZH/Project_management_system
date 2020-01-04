@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uchain.projectsystem.dao.NoticeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.uchain.projectsystem.entity.NoticeInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="notice" property="notice" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from notice_tb
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.uchain.projectsystem.entity.NoticeInfo" >
+    insert into notice_tb (id, notice)
+    values (#{id,jdbcType=INTEGER}, #{notice,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.uchain.projectsystem.entity.NoticeInfo" >
+    update notice_tb
+    set notice = #{notice,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, notice
+    from notice_tb
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, notice
+    from notice_tb
+  </select>
+</mapper>

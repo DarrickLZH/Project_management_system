@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uchain.projectsystem.dao.SelfReportInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.uchain.projectsystem.entity.SelfReportInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="report_name" property="reportName" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from self_report_tb
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.uchain.projectsystem.entity.SelfReportInfo" >
+    insert into self_report_tb (id, user_name, report_name
+      )
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{reportName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.uchain.projectsystem.entity.SelfReportInfo" >
+    update self_report_tb
+    set user_name = #{userName,jdbcType=VARCHAR},
+      report_name = #{reportName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, user_name, report_name
+    from self_report_tb
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, user_name, report_name
+    from self_report_tb
+  </select>
+    <select id="selectSelfAll" resultType="com.uchain.projectsystem.entity.SelfReportInfo">
+      select id, user_name, report_name
+      from self_report_tb
+      where user_name = #{userName}
+    </select>
+  <select id="selectByFileName" resultType="com.uchain.projectsystem.entity.SelfReportInfo">
+    select id, user_name, report_name
+    from self_report_tb
+    where report_name = #{fileName}
+  </select>
+</mapper>

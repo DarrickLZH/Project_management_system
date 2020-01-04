@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uchain.projectsystem.dao.TaskInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.uchain.projectsystem.entity.TaskInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="task" property="task" jdbcType="VARCHAR" />
+    <result column="is_finished" property="isFinished" jdbcType="INTEGER" />
+    <result column="finish_time" property="finishTime" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task_tb
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteAllByPid">
+    delete from task_tb
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.uchain.projectsystem.entity.TaskInfo" >
+    insert into task_tb (id, pid, task, 
+      is_finished, finish_time, `type`
+      )
+    values (#{id,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{task,jdbcType=VARCHAR}, 
+      #{isFinished,jdbcType=INTEGER}, #{finishTime,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertList">
+    insert into
+    task_tb
+    (pid, type ,task, is_finished, finish_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.pid}, #{item.type}, #{item.task}, #{item.isFinished}, #{item.finishTime})
+    </foreach>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.uchain.projectsystem.entity.TaskInfo" >
+    update task_tb
+    set pid = #{pid,jdbcType=INTEGER},
+      task = #{task,jdbcType=VARCHAR},
+      is_finished = #{isFinished,jdbcType=INTEGER},
+      finish_time = #{finishTime,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, pid, task, is_finished, finish_time, `type`
+    from task_tb
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, pid, task, is_finished, finish_time, `type`
+    from task_tb
+    where pid = #{pid}
+  </select>
+  <select id="selectAllByType" resultType="com.uchain.projectsystem.entity.TaskInfo">
+    select id, pid, task, is_finished, finish_time, `type`
+    from task_tb
+    where type = #{type}
+  </select>
+</mapper>

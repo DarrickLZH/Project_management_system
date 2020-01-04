@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uchain.projectsystem.dao.ProjectInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.uchain.projectsystem.entity.ProjectInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="manager" property="manager" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="is_paid" property="isPaid" jdbcType="VARCHAR" />
+    <result column="pay_channel" property="payChannel" jdbcType="INTEGER" />
+    <result column="self_choice" property="selfChoice" jdbcType="INTEGER" />
+    <result column="pay_warrant" property="payWarrant" jdbcType="VARCHAR" />
+    <result column="comment_school" property="commentSchool" jdbcType="VARCHAR" />
+    <result column="comment_company" property="commentCompany" jdbcType="VARCHAR" />
+    <result column="envidence" property="envidence" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from project_tb
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.uchain.projectsystem.entity.ProjectInfo" >
+    insert into project_tb (id, `type`, `name`, 
+      manager, start_time, end_time, 
+      is_paid, pay_channel, self_choice, 
+      pay_warrant, comment_school, comment_company, 
+      envidence)
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{manager,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
+      #{isPaid,jdbcType=VARCHAR}, #{payChannel,jdbcType=INTEGER}, #{selfChoice,jdbcType=INTEGER}, 
+      #{payWarrant,jdbcType=VARCHAR}, #{commentSchool,jdbcType=VARCHAR}, #{commentCompany,jdbcType=VARCHAR}, 
+      #{envidence,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.uchain.projectsystem.entity.ProjectInfo" >
+    update project_tb
+    set `type` = #{type,jdbcType=INTEGER},
+      `name` = #{name,jdbcType=VARCHAR},
+      manager = #{manager,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      is_paid = #{isPaid,jdbcType=VARCHAR},
+      pay_channel = #{payChannel,jdbcType=INTEGER},
+      self_choice = #{selfChoice,jdbcType=INTEGER},
+      pay_warrant = #{payWarrant,jdbcType=VARCHAR},
+      comment_school = #{commentSchool,jdbcType=VARCHAR},
+      comment_company = #{commentCompany,jdbcType=VARCHAR},
+      envidence = #{envidence,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, `type`, `name`, manager, start_time, end_time, is_paid, pay_channel, self_choice, 
+    pay_warrant, comment_school, comment_company, envidence
+    from project_tb
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, `type`, `name`, manager, start_time, end_time, is_paid, pay_channel, self_choice, 
+    pay_warrant, comment_school, comment_company, envidence
+    from project_tb
+  </select>
+    <select id="selectByProjectName" resultType="com.uchain.projectsystem.entity.ProjectInfo">
+    select id, `type`, `name`, manager, start_time, end_time, is_paid, pay_channel, self_choice,
+    pay_warrant, comment_school, comment_company, envidence
+    from project_tb
+    where name = #{projectName}
+    </select>
+  <select id="selectAllByType" resultType="com.uchain.projectsystem.entity.ProjectInfo">
+    select id, `type`, `name`, manager, start_time, end_time, is_paid, pay_channel, self_choice,
+           pay_warrant, comment_school, comment_company, envidence
+    from project_tb
+    where type = #{type}
+  </select>
+
+
+</mapper>

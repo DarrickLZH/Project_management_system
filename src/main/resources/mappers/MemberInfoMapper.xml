@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uchain.projectsystem.dao.MemberInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.uchain.projectsystem.entity.MemberInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="member_task" property="memberTask" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_tb
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteOneAll">
+    delete from member_tb
+    where pid=#{pid}
+  </delete>
+  <insert id="insert" parameterType="com.uchain.projectsystem.entity.MemberInfo" >
+    insert into member_tb (pid, member_name,
+      member_task)
+    values (#{pid,jdbcType=INTEGER}, #{memberName,jdbcType=VARCHAR},
+      #{memberTask,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertList" parameterType="java.util.List">
+    insert into
+    member_tb
+    (pid, member_name, member_task)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.pid}, #{item.memberName}, #{item.memberTask})
+    </foreach>
+  </insert>
+  <update id="updateMemberList" parameterType="com.uchain.projectsystem.entity.MemberInfo" >
+        update member_tb
+        set member_name = #{memberName},
+            member_task = #{memberTask}
+        where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, pid, member_name, member_task
+    from member_tb
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, pid, member_name, member_task
+    from member_tb
+    where pid=#{pid}
+  </select>
+  <select id="getPidByUsername" resultType="java.lang.Integer">
+    select distinct pid
+    from member_tb
+    where member_name = #{userName}
+  </select>
+</mapper>
